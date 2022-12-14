@@ -2,15 +2,20 @@
 <ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PruebaCollectionViewsConDB.MainPage">
-    <CollectionView  ItemsSource="{Binding ListArticulos}">
-        <CollectionView.ItemTemplate>
-            <DataTemplate>
-                <StackLayout>
-                    <Label Text="{Binding nombre}"/>
-                </StackLayout>
-            </DataTemplate>
-        </CollectionView.ItemTemplate>
-    </CollectionView>
+    <StackLayout>
+        <CollectionView  ItemsSource="{Binding ListArticulos}">
+            <CollectionView.ItemTemplate>
+                <DataTemplate>
+                    <StackLayout Orientation="Horizontal">
+                        <Label Text="{Binding nombre}"/>
+                        <Label Text="{Binding codigo}"/>
+                        <Label Text="{Binding tipo}"/>
+                    </StackLayout>
+                </DataTemplate>
+            </CollectionView.ItemTemplate>
+        </CollectionView>
+        <Button Text="unda" Command="{Binding obtenerGruposcommand}"/>
+    </StackLayout>
 
-    
+
 </ContentPage>

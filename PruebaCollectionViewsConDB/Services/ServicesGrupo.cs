@@ -2,39 +2,53 @@
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Text;
+using MySqlConnector;
+using PruebaCollectionViewsConDB.Data;
 using PruebaCollectionViewsConDB.Models;
 
 namespace PruebaCollectionViewsConDB.Services
 {
     public class ServicesGrupo
     {
-        public ObservableCollection<ModelGrupo> listGrupos;
+        //public static ObservableCollection<ModelGrupo> listGrupos;
         public ServicesGrupo() { }
 
         public static ObservableCollection<ModelGrupo> obtenerLista()
         {
 
-            return new ObservableCollection<ModelGrupo>
+            var conexionBD = DataConexion.conectar();
+            //ModelGrupo grupo = new ModelGrupo();
+            
+            try
             {
-                new ModelGrupo
+                ObservableCollection<ModelGrupo> listGrupos = new ObservableCollection<ModelGrupo> { };
+                string query = "SELECT * FROM xxxxgrup";
+                MySqlCommand comando = new MySqlCommand(query);
+                MySqlDataReader reader = null;
+                comando.Connection = conexionBD;
+                conexionBD.Open();
+                reader = comando.ExecuteReader();
+
+                while (reader.Read())
                 {
-                    codigo="100",
-                    nombre="Cascos",
-                    tipo="C"
-                },
-                new ModelGrupo
-                {
-                    codigo="200",
-                    nombre="Tarros",
-                    tipo="T"
-                },
-                new ModelGrupo
-                {
-                    codigo="300",
-                    nombre="Tornillos",
-                    tipo="To"
+                    ModelGrupo grupo = new ModelGrupo();
+                    grupo.codigo = reader.GetString(0).ToString();
+                    grupo.nombre = reader.GetString(1).ToString();
+                    grupo.tipo = reader.GetString(2).ToString();
+
+                    listGrupos.Add(grupo);
                 }
-            };
+                reader.Close();
+                conexionBD.Close();
+                return listGrupos;
+                
+            }
+            catch (MySqlException ex)
+            {
+                Console.WriteLine(ex.Message);
+                //throw;
+            }
+            return null;
         }
         
     }

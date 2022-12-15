@@ -3,14 +3,17 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              x:Class="PruebaCollectionViewsConDB.MainPage">
     <StackLayout>
-        <CollectionView  ItemsSource="{Binding ListArticulos}">
+        <SearchBar TextChanged="SearchBar_TextChanged"  ></SearchBar>
+        <CollectionView  ItemsSource="{Binding ListArticulos}" x:Name="grup_arti_list">
             <CollectionView.ItemTemplate>
                 <DataTemplate>
-                    <StackLayout Orientation="Horizontal">
-                        <Label Text="{Binding nombre}"/>
-                        <Label Text="{Binding codigo}"/>
-                        <Label Text="{Binding tipo}"/>
-                    </StackLayout>
+                    <Frame>
+                        <StackLayout Orientation="Horizontal">
+                            <Label Text="{Binding nombre}"/>
+                            <Label Text="{Binding codigo}"/>
+                            <Label Text="{Binding tipo}"/>
+                        </StackLayout>
+                    </Frame>
                 </DataTemplate>
             </CollectionView.ItemTemplate>
         </CollectionView>
